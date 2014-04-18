@@ -1011,7 +1011,15 @@ window.Chart = function(context, options){
 					for(var p = 0; p <= pAmount; p++) {
 						points.push({x:width/2+pieRadius*Math.cos(cumulativeAngle+p/pAmount*segmentAngle),y:height/2+pieRadius*Math.sin(cumulativeAngle+p/pAmount*segmentAngle)});
 					}
-					registerTooltip(ctx,{type:'shape',points:points},{label:data[i].label,value:data[i].value},'Pie');
+					var label, value;
+					if (typeof data[i].labelTitle !== 'undefined' && typeof data[i].labelValue !== 'undefined') {
+						label = data[i].labelTitle;
+						value = data[i].labelValue;
+					} else {
+						label = data[i].label;
+						label = data[i].value;
+					}
+					registerTooltip(ctx,{type:'shape',points:points},{label:label,value:value},'Pie');
 				}
 				
 				if(config.segmentShowStroke){
